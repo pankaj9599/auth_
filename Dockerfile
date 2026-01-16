@@ -14,7 +14,7 @@ RUN npm install --production
 COPY . .
 
 # Expose port used by On-Demand / serverless
-EXPOSE 8080
+EXPOSE 3000
 
 # Start the service
 CMD ["node", "index.js"]
