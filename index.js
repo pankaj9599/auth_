@@ -159,7 +159,8 @@ app.post("/execute", async (req, res) => {
    START SERVER
 ========================= */
 
-process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
   console.log(`🚀 authrepo running on port ${PORT}`);
 });
