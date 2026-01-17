@@ -114,22 +114,36 @@ app.post("/execute", async (req, res) => {
       return res.status(400).json({ error: "action is required" });
     }
 
+    // if (action === "block_user") {
+    //   const ruleId = await blockUserIP(ip);
+    //   return res.json({
+    //     status: "success",
+    //     action,
+    //     cloudflare_rule_id: ruleId
+    //   });
+    // }
+
+     
     if (action === "block_user") {
-      const ruleId = await blockUserIP(ip);
-      return res.json({
-        status: "success",
-        action,
-        cloudflare_rule_id: ruleId
-      });
+      await alertSlack(
+        `🔐 block ${ip}\nUser: ${user}\nReason: suspicious behavior`
+      );
+      return res.json({ status: "success", action });
     }
 
-    if (action === "revoke_token") {
-      const jira = await createJiraRevokeTicket({ user, token });
-      return res.json({
-        status: "pending_approval",
-        action,
-        jira_ticket: jira
-      });
+    // if (action === "revoke_token") {
+    //   const jira = await createJiraRevokeTicket({ user, token });
+    //   return res.json({
+    //     status: "pending_approval",
+    //     action,
+    //     jira_ticket: jira
+    //   });
+    // }
+         if (action === "revoke_token") {
+await alertSlack(
+        `🔐 revoke token\nUser: ${user}\nReason: suspicious behavior`
+      );
+      return res.json({ status: "success", action });
     }
 
     if (action === "temporary_account_lock") {
